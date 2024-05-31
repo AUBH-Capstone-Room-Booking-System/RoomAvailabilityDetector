@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "Farah Khafate",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-mega", "id": "mega", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 67.5, "left": -82.2, "attrs": {} },
+    { "type": "chip-esp12s", "id": "chip1", "top": -115.2, "left": 259.2, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir1", "top": 234.4, "left": 299.82, "attrs": {} }
+  ],
+  "connections": [
+    [ "chip1:IN", "mega:0", "blue", [ "h30.61", "v57.6", "h-145.7" ] ],
+    [ "chip1:OUT", "mega:1", "gold", [ "h40.21", "v96", "h-163.2" ] ],
+    [ "chip1:GND", "mega:GND.1", "black", [ "h0" ] ],
+    [ "chip1:VCC", "mega:5V", "red", [ "h-19.2", "v-19.2", "h172.8", "v326.4", "h-259.2" ] ],
+    [ "dht1:VCC", "mega:3.3V", "red", [ "v28.8", "h220.8" ] ],
+    [ "dht1:GND", "mega:GND.2", "black", [ "v38.4", "h220.8" ] ],
+    [ "dht1:SDA", "mega:2", "green", [ "v9.6", "h38.5", "v-201.6", "h259.2" ] ],
+    [ "pir1:VCC", "mega:5V", "red", [ "h-172.8", "v-141.9" ] ],
+    [ "pir1:GND", "mega:GND.3", "black", [ "v19.2", "h-171.71" ] ],
+    [ "pir1:OUT", "mega:A1", "green", [ "v9.6", "h-134.54" ] ]
+  ],
+  "dependencies": {}
+}

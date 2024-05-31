@@ -1,0 +1,11 @@
+{
+  "name": "esp12s",
+  "author": "",
+  "pins": [
+    "VCC",
+    "GND",
+    "IN",
+    "OUT"
+  ],
+  "controls": []
+}
