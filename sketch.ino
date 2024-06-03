@@ -7,7 +7,7 @@ SoftwareSerial softserial(A9, A8); // RX, TX
 
 // WiFi network credentials
 char ssid[] = "ssid";
-char pass[] = "***";
+char pass[] = "12345678";
 
 // Server details
 const char* serverName = "192.168.100.132"; // Replace with your machine's local network IP address
@@ -17,8 +17,8 @@ int status = WL_IDLE_STATUS;
 
 WiFiEspClient client;
 
-#define SOUND_SENSOR_ANALOG_PIN A1 // Analog pin 0
-int digit_sensor = 2;
+#define PIR_SENSOR_PIN 2  // Digital pin 2 for the PIR sensor
+
 // Define the DHT sensor pin and type
 #define DHTPIN 3  // Digital pin 3
 #define DHTTYPE DHT11  // DHT 11
@@ -53,30 +53,28 @@ void setup() {
 
   Serial.println("You're connected to the network");
   printWifiStatus();
-  pinMode (digit_sensor, INPUT);
-
+  
+  // Initialize the PIR sensor pin
+  pinMode(PIR_SENSOR_PIN, INPUT);
 
   // Initialize the DHT sensor
   dht.begin();
-
-  // Initialize the sound sensor pin
 }
 
 void loop() {
   // Read sensor values
   float temperature = dht.readTemperature();
   float humidity = dht.readHumidity();
-    int digitValue=digitalRead(digit_sensor);
-
+  int pirValue = digitalRead(PIR_SENSOR_PIN);
 
   // Send sensor data to the server
-  sendSensorData(temperature, humidity, digitValue);
+  sendSensorData(temperature, humidity, pirValue);
 
   // Wait for 5 seconds before sending next data
   delay(5000);
 }
 
-void sendSensorData(float temperature, float humidity, int digitValue) {
+void sendSensorData(float temperature, float humidity, int pirValue) {
   if (client.connect(serverName, serverPort)) {
     Serial.println("Connected to server");
 
@@ -87,7 +85,7 @@ void sendSensorData(float temperature, float humidity, int digitValue) {
     url += "&humidity=";
     url += humidity;
     url += "&soundLevel=";
-    url += digitValue;
+    url += pirValue;
     url += "&airQuality=Good&comfort=4";
 
     // Make a HTTP GET request
